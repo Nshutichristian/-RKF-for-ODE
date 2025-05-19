@@ -1,5 +1,7 @@
+
 import math
 import matplotlib.pyplot as plt
+import time
 
 # Define the differential equation dy/dx = -y + ln(x)
 def f(x, y):
@@ -27,14 +29,21 @@ steps = 5
 x_vals = [x0]
 y_vals = [y0]
 
+# Time the RK4 computation
+start_time = time.time()
+
 # Run RK4 for 5 steps
 for i in range(steps):
     x_next, y_next, k1, k2, k3, k4 = rk4_step(x_vals[-1], y_vals[-1], h)
     x_vals.append(x_next)
     y_vals.append(y_next)
-    
+
     print(f"x{i+1} = {x_next:.6f}, y{i+1} = {y_next:.6f}")
     print(f"k1 = {k1:.6f}, k2 = {k2:.6f}, k3 = {k3:.6f}, k4 = {k4:.6f}\n")
+
+end_time = time.time()
+print(f"Total computing time: {end_time - start_time:.6f} seconds")
+print(f"Total steps: {steps}")
 
 # Plot the results
 plt.plot(x_vals, y_vals, marker='o', label="RK4 Solution")
